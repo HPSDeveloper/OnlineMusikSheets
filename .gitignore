@@ -1,0 +1,6 @@
+.idea
+backup
+out
+*.iml
+resources/chopro/*.chopro
+*.html
