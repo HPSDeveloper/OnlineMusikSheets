@@ -4,7 +4,7 @@ so that no (much) scrolling is needed. Input of the html generator are _chopro_ 
 
 ## Usage
 1. Place your _*.chopro_ files to the _resources/chopro_ folder.
-2. Run Java main class: _ch.hpdy.Main_ 
+2. Run Java main class: _ch.hpdy.Main <path_of_input_files>_ 
 3. The generated html files are placed in the _web_ folder.
 
 ## Feature list
