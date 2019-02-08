@@ -1,5 +1,6 @@
 package ch.hpdy;
 
+// FIXME: 08.02.2019 Provide project as maven project
 import org.junit.Test;
 
 /**

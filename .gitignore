@@ -1,6 +1,7 @@
 .idea
 backup
 out
+output
 *.iml
 resources/chopro/*.chopro
 *.html

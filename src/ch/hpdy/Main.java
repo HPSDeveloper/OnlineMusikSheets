@@ -1,5 +1,7 @@
 package ch.hpdy;
 
+import com.sun.jndi.toolkit.url.Uri;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -15,15 +17,28 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            (new Main()).handleFile();
+            if(!check(args)) return;
+            (new Main()).handleFile(args);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void handleFile() throws IOException {
+    private static boolean check(String[] args) {
+        if(args[0] == null || args[0].length() <= 0){
+            System.out.println("ERROR: You must specify a directory path as first argument of the call");
+            return false;
+        }
+        if(!(new File(args[0])).exists()){
+            System.out.println("ERROR: The given input path does not exist");
+            return false;
+        }
+        return true;
+    }
+
+    private void handleFile(String[] args) throws IOException {
         // FIXME: 23.12.2018 Lese directory von projekt-relativem Pfad
-        File folder = new File("C:\\Users\\Hans-Peter Schmid\\Documents\\Ausbildung\\SongBook\\out\\production\\SongBook\\chopro");
+        File folder = new File(args[0]);
 
         String htmlTemplate = getHtmlTemplate();
 
