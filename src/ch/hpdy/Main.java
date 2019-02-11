@@ -25,7 +25,7 @@ public class Main {
     }
 
     private static boolean check(String[] args) {
-        if(args[0] == null || args[0].length() <= 0){
+        if(args.length <= 0 || args[0] == null || args[0].length() <= 0){
             System.out.println("ERROR: You must specify a directory path as first argument of the call");
             return false;
         }
