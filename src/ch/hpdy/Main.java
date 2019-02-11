@@ -1,6 +1,6 @@
 package ch.hpdy;
 
-import com.sun.jndi.toolkit.url.Uri;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Main {
+    final static Logger LOG = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
         try {
@@ -26,11 +27,11 @@ public class Main {
 
     private static boolean check(String[] args) {
         if(args.length <= 0 || args[0] == null || args[0].length() <= 0){
-            System.out.println("ERROR: You must specify a directory path as first argument of the call");
+            LOG.error("You must specify a directory path as first argument of the call");
             return false;
         }
         if(!(new File(args[0])).exists()){
-            System.out.println("ERROR: The given input path does not exist");
+            LOG.error("The given input path does not exist");
             return false;
         }
         return true;
@@ -59,7 +60,7 @@ public class Main {
         try {
             Files.write(Paths.get("web/" + fileName), htmlFileContent.getBytes());
         } catch (IOException e) {
-            System.out.println("Could not write file " + fileName + ". Exception is: " +  e.getMessage());
+            LOG.error("Could not write file " + fileName + ". Exception is: " +  e.getMessage());
         }
     }
 
@@ -79,7 +80,7 @@ public class Main {
 
         if(m.find()){
             sb.append("<h1>" + m.group(2) + "</h1>");
-            System.out.println("Title is: " + m.group(2));
+            LOG.debug("Title is: " + m.group(2));
         }
 
          pattern = "\\{(c|composer):(.*)\\}";
@@ -88,7 +89,7 @@ public class Main {
 
         if(m.find()){
             sb.append("<h2>" + m.group(2) + "</h2>");
-            System.out.println("Compser is: " + m.group(2));
+            LOG.debug("Compser is: " + m.group(2));
         }
 
         return sb.toString();
@@ -105,7 +106,7 @@ public class Main {
             String transposeButtons = String.format("<strong id=\"key\" class=\"chord\">%s</strong>"
                     + "<button id=\"transposeUp\">up</button>"
                     + "<button id=\"transposeDown\">down</button>", m.group(2));
-            System.out.println("Transpose buttons are: " + transposeButtons);
+            LOG.debug("Transpose buttons are: " + transposeButtons);
             return transposeButtons;
         }
         return "";
@@ -137,7 +138,7 @@ public class Main {
                 String chord = m3.group(1);
 //                String phrase = m3.group(2).replaceAll("\\n", "");
                 String phrase = m3.group(2).replaceAll("(?<!\\n)\\n(?!\\n)", "");
-                System.out.println("Harmoniee: " + chord + " / " + phrase);
+                LOG.debug("Harmoniee: " + chord + " / " + phrase);
                 int seq = 0;
                 final String DELIM = "<<DELIM>>";;
                 for(String phrase1 : (phrase + DELIM).split("[\\n\\r]{2,}")) {
@@ -156,7 +157,7 @@ public class Main {
 
         }
 
-        System.out.println("The songs DIVs:\n" + sb.toString());
+        LOG.debug("The songs DIVs:\n" + sb.toString());
         return sb.toString();
     }
 
@@ -182,7 +183,6 @@ public class Main {
             }
 
             String rest = phrase.substring(m3.end());
-            System.out.println("Begin: " + before + "//found: " + found + "//rest: " + rest);
             pos = m3.end();
         }
         if(pos < phrase.length() || (chord.length() > 0 && !chord.equals("."))){
@@ -210,7 +210,9 @@ public class Main {
     }
 
     public static List<File> listFilesForFolder(final File folder) {
-        return Arrays.stream(folder.listFiles()).filter(file -> !file.isDirectory()).collect(Collectors.toList());
+        List<File> inputFiles = Arrays.stream(folder.listFiles()).filter(file -> !file.isDirectory()).collect(Collectors.toList());
+        System.out.println("Reading " + inputFiles.size() + " files from " + folder.getAbsolutePath());
+        return inputFiles;
     }
 
 

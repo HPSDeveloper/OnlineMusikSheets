@@ -5,3 +5,4 @@ output
 *.iml
 resources/chopro/*.chopro
 *.html
+target
