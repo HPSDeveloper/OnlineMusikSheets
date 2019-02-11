@@ -37,7 +37,6 @@ public class Main {
     }
 
     private void handleFile(String[] args) throws IOException {
-        // FIXME: 23.12.2018 Lese directory von projekt-relativem Pfad
         File folder = new File(args[0]);
 
         String htmlTemplate = getHtmlTemplate();
