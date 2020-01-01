@@ -51,7 +51,7 @@ public class Main {
             htmlFileContent = htmlFileContent.replaceAll("<div id=\"headings\"/>", getHeadersAsHtml(choproFile));
             htmlFileContent = htmlFileContent.replaceAll("<button id=\"transpose\"/>", getKeyAsHtml(choproFile));
 
-            writeHtmlFile(htmlFileContent, choProSong.getName().replaceAll("\\.chopro.example|\\.chopro", ".html"));
+            writeHtmlFile(htmlFileContent, choProSong.getName().replaceAll("\\.chopro.example|\\.chopro|\\.cho", ".html"));
         }
 
     }
@@ -65,7 +65,7 @@ public class Main {
     }
 
     private String getHtmlTemplate() throws IOException {
-        File templateFile = new File("C:\\Users\\Hans-Peter Schmid\\Documents\\Ausbildung\\SongBook\\out\\production\\SongBook\\htmlTemplate\\template.html");
+        File templateFile = new File("C:\\Users\\Lenovo W540\\Documents\\Ausbildung\\SongBook\\out\\production\\SongBook\\htmlTemplate\\template.html");
         return readFileToString(templateFile.getPath(), Charset.forName("UTF8"));
     }
 
@@ -105,7 +105,7 @@ public class Main {
         if(m.find()){
             String transposeButtons = String.format("<strong id=\"key\" class=\"chord\">%s</strong>"
                     + "<button id=\"transposeUp\">up</button>"
-                    + "<button id=\"transposeDown\">down</button>", m.group(2));
+                    + "<button id=\"transposeDown\">down</button>", m.group(2).trim());
             LOG.debug("Transpose buttons are: " + transposeButtons);
             return transposeButtons;
         }
@@ -118,7 +118,7 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         final String chordPattern = "\\[([\\(\\)\\w#/]*)\\]";
         String umlaute = "\\u00C0-\\u017F";
-        String pattern = "\\n([" + umlaute + "'\\(\\)\\{\\}:#\\w\\s\\\\]*)(" + chordPattern + ")";
+        String pattern = "\\n([" + umlaute + "'\\(\\)\\{\\}:#\\-\\w\\s\\\\]*)(" + chordPattern + ")";
 
 
         String begin;
@@ -130,7 +130,7 @@ public class Main {
             createDivsForOnePhrase(".", begin, sb);
             int pos = m.end(1);
 
-            String onePhrasePattern = "(([" + umlaute + "\\(\\)'\\{\\}:\\{\\}:\\w\\s,\"\\?\\.!:])*)";
+            String onePhrasePattern = "(([" + umlaute + "\\(\\)'\\{\\-\\}´:\\{\\-\\}:\\w\\s,\"\\?\\.!:])*)";
             String oneHarmonyPattern = chordPattern + onePhrasePattern;
             Pattern p3 = Pattern.compile(oneHarmonyPattern);
             Matcher m3 = p3.matcher(choProSong);
@@ -164,7 +164,7 @@ public class Main {
 
     void createDivsForOnePhrase(String chord, String phrase, StringBuilder sb) {
 
-        Pattern p3 = Pattern.compile("(\\{[\\w]*:[\\w\\s]*})");
+        Pattern p3 = Pattern.compile("(\\{[\\w]*:[\\w\\s\\-]*})");
         Matcher m3 = p3.matcher(phrase);
         int pos = 0;
         while(m3.find(pos)){
@@ -176,10 +176,13 @@ public class Main {
             }
 
             String found = m3.group();
-            if(found.startsWith("{s:")){
-                sb.append("\n");
-                sb.append(createHTMLSectionDiv(chord, found.substring(3,found.length()-1)));
-                chord = "."; //chord is asssigned and should no more be assigned now
+            String[] commentPatterns = {"{s:", "{comment:"};
+            for(String commentPattern : commentPatterns){
+                if(found.startsWith(commentPattern)){
+                    sb.append("\n");
+                    sb.append(createHTMLSectionDiv(chord, found.substring(commentPattern.length(),found.length()-1)));
+                    chord = "."; //chord is asssigned and should no more be assigned now
+                }
             }
 
             String rest = phrase.substring(m3.end());

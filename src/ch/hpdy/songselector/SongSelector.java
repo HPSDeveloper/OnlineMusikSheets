@@ -109,7 +109,7 @@ public class SongSelector extends JFrame {
                             "<body>\n" +
                             "<table style=\"width:100%\">\n");
                     for(String cf : chosenFiles){
-                        writer.write("<tr><td><a href=\"../songs/" + cf + "\">" + cf + "</a></tr>");
+                        writer.write("<tr><td><a href=\"../" + cf + "\">" + cf + "</a></tr>");
                         writer.write("\n");
                     }
                     writer.write("</table>" +

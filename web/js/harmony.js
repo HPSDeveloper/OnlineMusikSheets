@@ -120,6 +120,7 @@ console.log('F#m7/9'   + ' wird zu ' + transpose(steps, 'F#m7/9' , baseChord));
 console.log('Csus4/7'  + ' wird zu ' + transpose(steps, 'Csus4/7', baseChord));
 console.log('Cdim7/A'  + ' wird zu ' + transpose(steps, 'Cdim7/A', baseChord));
 console.log('Cmin7/D'  + ' wird zu ' + transpose(steps, 'Cmin7/D', baseChord));
+console.log('Cmaj7/D'  + ' wird zu ' + transpose(steps, 'Cmaj7/D', baseChord));
 
 function separateChordFromBase(chord){
     let chordSepDelimiterPattern = /(\/)[A-GHa-gh#]+/;
@@ -139,10 +140,11 @@ console.log('F#m7/9'   + ' wird zu ' + separateChordFromBase('F#m7/9' ).main + "
 console.log('Csus4/7'  + ' wird zu ' + separateChordFromBase('Csus4/7').main + " / side: " + separateChordFromBase('Csus4/7').base);
 console.log('Cdim7/A'  + ' wird zu ' + separateChordFromBase('Cdim7/A').main + " / side: " + separateChordFromBase('Cdim7/A').base);
 console.log('Cmin7/D'  + ' wird zu ' + separateChordFromBase('Cmin7/D').main + " / side: " + separateChordFromBase('Cmin7/D').base);
+console.log('Cmaj7/D'  + ' wird zu ' + separateChordFromBase('Cmaj7/D').main + " / side: " + separateChordFromBase('Cmaj7/D').base);
 
 
 function separateChord(chord){
-    let chordSepDelimiterPattern = /(\d|sus|dim|min|\+)/;
+    let chordSepDelimiterPattern = /(\d|sus|dim|min|maj|\+)/;
     let chordParts = chord.split(chordSepDelimiterPattern);
     return {core : chordParts[0], aside : chord.substring(chordParts[0].length)};
 }
@@ -153,6 +155,7 @@ console.log('F#m7/9' + ' wird zu ' + separateChord('F#m7/9').core + " / side: " 
 console.log('Csus4'  + ' wird zu ' + separateChord('Csus4' ).core + " / side: " + separateChord('Csus4' ).aside);
 console.log('Cdim7'  + ' wird zu ' + separateChord('Cdim7' ).core + " / side: " + separateChord('Cdim7' ).aside);
 console.log('Cmin7'  + ' wird zu ' + separateChord('Cmin7' ).core + " / side: " + separateChord('Cmin7' ).aside);
+console.log('Cmaj7'  + ' wird zu ' + separateChord('Cmaj7' ).core + " / side: " + separateChord('Cmaj7' ).aside);
 
 /**
  * This function translates chords minor notations with capital letter and "m" (minor)
@@ -161,7 +164,7 @@ console.log('Cmin7'  + ' wird zu ' + separateChord('Cmin7' ).core + " / side: " 
  */
 function minorsAsWithLowerCaseNotation(chord){
     let posMin = chord.indexOf("min");
-    let minorPattern = /([^ac-z])(m)(?!in)/;
+    let minorPattern = /([^ac-z])(m)(?!(in|aj))/;
     if(minorPattern.test(chord)){
         chord = chord.replace(minorPattern, "$1");
         chord = chord.substring(0,1).toLowerCase() + chord.substring(1);
@@ -178,3 +181,4 @@ console.log('Hm'     + ' wird zu ' + minorsAsWithLowerCaseNotation('Hm'    ));
 console.log('Csus4'  + ' wird zu ' + minorsAsWithLowerCaseNotation('Csus4' ));
 console.log('Cdim7'  + ' wird zu ' + minorsAsWithLowerCaseNotation('Cdim7' ));
 console.log('Cmin7'  + ' wird zu ' + minorsAsWithLowerCaseNotation('Cmin7' ));
+console.log('Cmaj7'  + ' wird zu ' + minorsAsWithLowerCaseNotation('Cmaj7' ));
