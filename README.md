@@ -20,6 +20,10 @@ I run it with a working directory pointing to the root of this project while the
    - _{s:...}_ directive is not chopro standard
    - _{comment:...}_ directive supported.
 2. Chord transposition: The html files offer chord transposing.
+
+## Desired Feature/Bug list
+- Chord "B" is understood the "german" way as "Bb": --> "B" Has to be manually changed to "H" before HTML song generation
+- A filter for the HTML song files contained in a directory would be nice.
  
 ## Contributing instruction
 1. Commit messages [Udacity Git Commit Message Style Guide](https://udacity.github.io/git-styleguide/)
