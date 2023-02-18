@@ -66,7 +66,7 @@ public class Main {
     }
 
     private String getHtmlTemplate() throws IOException {
-        File templateFile = new File("C:\\Users\\Lenovo W540\\Documents\\Ausbildung\\SongBook\\src\\main\\resources\\htmlTemplate\\template.html");
+        File templateFile = new File("C:\\Users\\Lenovo W540\\Documents\\eigeneProgramme\\under_development\\SongBook\\src\\main\\resources\\htmlTemplate\\template.html");
         return readFileToString(templateFile.getPath(), Charset.forName("UTF8"));
     }
 
