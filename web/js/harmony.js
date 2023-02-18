@@ -6,7 +6,7 @@ $("#transposeDown").click(function(){
 });
 
 function transposeAndSetAllChords(nbrOfSteps) {
-    let key = $("#key").text();
+    let key = transposeToMajorKey($("#key").text());
     $(".chord").each(index => {
             let origChord = $(".chord")[index].innerText;
             if (origChord != ".") {
@@ -17,11 +17,18 @@ function transposeAndSetAllChords(nbrOfSteps) {
     );
 }
 /**
- * Created by Hans-Peter Schmid on 25.12.2018.
+ * Translates the base key of the song to the major (dur) representation
  */
+function transposeToMajorKey(keyRaw){
+    var re = new RegExp('([A-Za-z][b#]?)([m]?)').exec(keyRaw);
+    if(re[2]) {
+        return minorToMajor[re[1]].toUpperCase();
+    }
+    return re[1].toUpperCase();
+}
 
-
-
+const minorToMajor = {'C' : 'Eb', 'C#' : 'E', 'Db' : 'E', 'D' : 'F', 'D#' : 'F#', 'Eb' : 'Gb', 'E' : 'G', 'F' : 'Ab',
+    'F#' : 'A', 'G' : 'B', 'G#' : 'H', 'Ab' : 'H', 'A' : 'C', 'Bb' : 'Db', 'B' : 'Db', 'H' : 'D'}
 
 function shift(chordArray, scalePos, nbrOfSteps) {
     while((scalePos + nbrOfSteps) < 0){ nbrOfSteps += chordArray.length;}
@@ -114,6 +121,7 @@ function firstCharIsLowerCase(string){
     return string.substring(0,1).toUpperCase() != string.substring(0,1);
 }
 console.log("-----MAIN transpose: ----");
+console.log('Dm'    + ' wird zu ' + transpose(steps, 'Dm'  , baseChord));
 console.log('Am7/G'    + ' wird zu ' + transpose(steps, 'Am7/G'  , baseChord));
 console.log('Dbm+/F#'  + ' wird zu ' + transpose(steps, 'Dbm+/F#', baseChord));
 console.log('F#m7/9'   + ' wird zu ' + transpose(steps, 'F#m7/9' , baseChord));

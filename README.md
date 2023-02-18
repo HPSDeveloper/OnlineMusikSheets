@@ -16,9 +16,14 @@ I run it with a working directory pointing to the root of this project while the
 
 ## Feature list
 1. Generate html files from _chopro_ files
-   - Subset of _chopro_ directives is supported only
-   - _{s:...}_ directive is not chopro standard
-   - _{comment:...}_ directive supported.
+
+   Directives supported:
+      Subset of _chopro_ directives is supported only
+      - _{s:...}_ directive is not chopro standard similar to _{comment:...}_
+      - _{comment:...}_
+      - _{composer:...}_ 
+      - _{key:...}_ Is needed for the transposing feature
+   
 2. Chord transposition: The html files offer chord transposing.
 
 ## Desired Feature/Bug list

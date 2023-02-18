@@ -4,6 +4,7 @@ import ch.hpdy.TimeUtil;
 import ch.hpdy.songselector.vorlagen.FileChooser1;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedWriter;
@@ -24,33 +25,12 @@ public class SongSelector extends JFrame {
         JButton fileChooserButton = new JButton("chose Songs");
         fileChooserButton.setBounds(10,10,180, 40);//x axis, y axis, width, height
 
-        fileChooserButton.addMouseListener(new MouseListener() {
+        fileChooserButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
-                chosenFiles.add(FileChooser1.chooseFileName(getSubFile(basePathFile, "songs")));
+                chosenFiles.add(FileChooser1.chooseFileName(basePathFile));
                 area.setText("");
                 chosenFiles.forEach(cf -> area.setText( area.getText() + "\n" + cf));
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
 
             }
         });
@@ -62,35 +42,11 @@ public class SongSelector extends JFrame {
 
         JButton saveListButton = new JButton("save list");
         saveListButton.setBounds(400,10,180, 40);
-        saveListButton.addMouseListener(new MouseListener() {
+        saveListButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                File saveFilePath = FileChooser1.chooseFile(getSubFile(basePathFile, "selections"));
-                File saveFilePath = getSubFile(basePathFile, "selections");
-                saveAsTextFile(saveFilePath);
+                File saveFilePath = getSubFile(basePathFile, "sets");
                 saveAsHtmlFile(saveFilePath);
-            }
-
-            private void saveAsTextFile(File saveFilePath) {
-                File saveFile = new  File(saveFilePath, songListName.getText() + ".txt");
-                BufferedWriter writer = null;
-                try {
-                    saveFile.createNewFile();
-                    writer = new BufferedWriter(new FileWriter(saveFile));
-                    for(String cf : chosenFiles){
-                        writer.write(cf);
-                        writer.write("\n");
-                    }
-
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }finally{
-                    try {
-                        writer.close();
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                }
             }
 
             private void saveAsHtmlFile(File saveFilePath) {
@@ -109,7 +65,7 @@ public class SongSelector extends JFrame {
                             "<body>\n" +
                             "<table style=\"width:100%\">\n");
                     for(String cf : chosenFiles){
-                        writer.write("<tr><td><a href=\"../" + cf + "\">" + cf + "</a></tr>");
+                        writer.write("<tr><td><a href=\"../" + cf + "?referer=sets/" +saveFile.getName() + "\">" + cf + "</a></tr>");
                         writer.write("\n");
                     }
                     writer.write("</table>" +
@@ -125,32 +81,8 @@ public class SongSelector extends JFrame {
                     }
                 }
             }
-
-
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
         });
         add(saveListButton);
-
-
         area.setBounds(10,60, 450,400);
 
 

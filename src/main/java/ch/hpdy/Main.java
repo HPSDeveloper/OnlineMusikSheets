@@ -48,6 +48,7 @@ public class Main {
 
 
             String htmlFileContent = htmlTemplate.replaceAll("<div id=\"songBody\"/>", htmlSongBody);
+            htmlFileContent = htmlFileContent.replaceAll("<title>Songbook</title>", "<title>" + choProSong.getName().substring(0, choProSong.getName().indexOf(".cho")) + "</title>");
             htmlFileContent = htmlFileContent.replaceAll("<div id=\"headings\"/>", getHeadersAsHtml(choproFile));
             htmlFileContent = htmlFileContent.replaceAll("<button id=\"transpose\"/>", getKeyAsHtml(choproFile));
 
@@ -65,7 +66,7 @@ public class Main {
     }
 
     private String getHtmlTemplate() throws IOException {
-        File templateFile = new File("C:\\Users\\Lenovo W540\\Documents\\Ausbildung\\SongBook\\out\\production\\SongBook\\htmlTemplate\\template.html");
+        File templateFile = new File("C:\\Users\\Lenovo W540\\Documents\\Ausbildung\\SongBook\\src\\main\\resources\\htmlTemplate\\template.html");
         return readFileToString(templateFile.getPath(), Charset.forName("UTF8"));
     }
 

@@ -40,6 +40,10 @@
     font-weight: bold;
 }
 
+.chorus {
+    font-weight: bold
+}
+
 .hidden {
     display: none;
 }

@@ -7,7 +7,7 @@ foreach ($files as &$file) {
         $info = pathinfo($file);
         if ($info["extension"] == "html") {
             /* echo "<a href='$path/$file'>$file</a><a> - </a>"; */
-           echo "<a href='$path/$file'>$file</a><br /><br />";
+           echo "<a href='$path/$file?referer=index.php'>$file</a><br /><br />";
         }
         $i++;
     }
