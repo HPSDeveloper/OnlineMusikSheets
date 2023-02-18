@@ -5,7 +5,6 @@ output
 *.iml
 resources/chopro/*.chopro
 resources/chopro/*.cho
-*.html
 target
 src/main/resources/chopro/*.chopro
 src/main/resources/chopro/*.cho
