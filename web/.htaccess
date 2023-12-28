@@ -1,0 +1,5 @@
+AuthName "Password Protected Area"
+AuthType Basic
+AuthUserFile "/home_pr5/e/s/estherundhampi.ch/access/musiker"
+AddDefaultCharset UTF-8
+require valid-user
