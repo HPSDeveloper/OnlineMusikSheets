@@ -65,7 +65,7 @@ public class SongSelector extends JFrame {
                             "<body>\n" +
                             "<table style=\"width:100%\">\n");
                     for(String cf : chosenFiles){
-                        writer.write("<tr><td><a href=\"../" + cf + "?referer=sets/" +saveFile.getName() + "\">" + cf + "</a></tr>");
+                        writer.write("<tr><td><a href=\"../" + urlEscape(cf) + "?referer=sets/" +saveFile.getName() + "\">" + cf + "</a></tr>");
                         writer.write("\n");
                     }
                     writer.write("</table>" +
@@ -91,6 +91,16 @@ public class SongSelector extends JFrame {
         setSize(600,600);//400 width and 500 height
         setLayout(null);//using no layout managers
         setVisible(true);//making the frame visible
+    }
+
+    private String urlEscape(String cf) {
+        return cf.replaceAll("Ä", "%c4")
+                .replaceAll("ä", "%e4")
+                .replaceAll("Ö", "%d6")
+                .replaceAll("ö", "%f6")
+                .replaceAll("Ü", "%dc")
+                .replaceAll("ü", "%fc");
+
     }
 
     private File getBasePathFile() throws URISyntaxException {
