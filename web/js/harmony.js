@@ -42,15 +42,21 @@ const chordScales = {
 }
 
 const susOrSharpTransposeMap = { 'C' : { down : '#', up: 'B' },
-                                'Db' : { down : '#', up: '#' },
+                                'C#' : { down : '#', up: '#' },
+                                'DB' : { down : '#', up: '#' },
                                 'D' :  { down : 'B', up: 'B' },
-                                'Eb' : { down : '#', up: '#' },
+                                'D#' : { down : '#', up: '#' },
+                                'EB' : { down : '#', up: '#' },
                                 'E' :  { down : 'B', up: 'B' },
+                                'E#' :  { down : '#', up: 'B' },
                                 'F' :  { down : '#', up: 'B' },
-                                'Gb' : { down : '#', up: '#' },
-                                'G' :  { down : 'B', up: 'B' },
-                                'Ab' : { down : '#', up: '#' },
+                                'F#' : { down : 'B', up: '#' },
+                                'GB' : { down : '#', up: '#' },
+                                'G' :  { down : '#', up: 'B' },
+                                'G#' : { down : '#', up: '#' },
+                                'AB' : { down : '#', up: '#' },
                                 'A' :  { down : 'B', up: 'B' },
+                                'A#' :  { down : '#', up: '#' },
                                 'B' :  { down : '#', up: '#' },
                                 'H' :  { down : 'B', up: '#' }};
 
