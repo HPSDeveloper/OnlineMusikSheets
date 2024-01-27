@@ -22,7 +22,6 @@ foreach ($files as &$file) {
             $urlFileName = $street_new = preg_replace($umlaute, $replace, $utf8FileName);
            echo "<a href='$path/$urlFileName?referer=index.php'>$displayFileName</a><br /><br />";
         }
-        $i++;
     }
 }
 echo "</body><head>";
