@@ -16,7 +16,7 @@ $files = scandir($path, 0);
 foreach ($files as &$file) {
     if($file != "." && $file != ".." && $file != "index.php" && $file != ".htaccess" && $file != "error_log" && $file != "cgi-bin") {
         $info = pathinfo($file);
-        if ($info["extension"] == "html") {
+        if (array_key_exists("extension", $info) && $info["extension"] == "html") {
             $utf8FileName = mb_convert_encoding($file, 'UTF-8', 'ISO-8859-1');
             $displayFileName = htmlentities($utf8FileName, ENT_QUOTES, 'UTF-8');
             $urlFileName = $street_new = preg_replace($umlaute, $replace, $utf8FileName);
